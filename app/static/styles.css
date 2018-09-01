@@ -1,0 +1,37 @@
+html {
+    height: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    height: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+    height: 100%;
+}
+
+#mapid {
+    height: 100%;
+}
+
+.my-label {
+    position: absolute;
+    font-size:14px;
+}
+
+#comment_form {
+    display: none;
+    z-index: 2000;
+}
+
+
+.form-inline {
+    width: 285px;
+}
