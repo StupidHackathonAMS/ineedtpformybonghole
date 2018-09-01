@@ -19,7 +19,7 @@ def after_request(response):
     response.headers.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
     response.headers.add('Access-Control-Request-Headers', 'Content-Type,Authorization')
-    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONSk')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
     return response
 
 
@@ -104,4 +104,4 @@ def install():
 def get_random():
     path_to_images = os.path.abspath('app/static/img')
     filename = random.choice(os.listdir(path_to_images))
-    return send_file(os.path.join(path_to_images, filename))
+    return send_file(os.path.join(path_to_images, filename))k
