@@ -9,7 +9,7 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or '123'
     SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/ineedtp.db'
     PROPAGATE_EXCEPTIONS = True
-    MAX_CONTENT_LENGTH = 20000
+    MAX_CONTENT_LENGTH = 20000000
     @staticmethod
     def init_app(app):
         pass
