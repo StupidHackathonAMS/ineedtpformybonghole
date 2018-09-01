@@ -82,10 +82,10 @@ def upload_responce():
             save_path = os.path.abspath(os.path.join('app/static/img', filename))
             file.save(save_path)
 
-            request_id = request.data['id']
+            request_id = request.form['id']
             req = TPRequest.query.filter(TPRequest.id == request_id).one_or_none()
             if req:
-                req.message = request.data['message']
+                req.message = request.form['message']
                 req.img_url = '{}/app/static/img/{}'.format(request.host, filename)
                 req.fulfilledAt = int(time.time())
                 db.session.add(req)
