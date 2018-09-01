@@ -65,7 +65,15 @@ def extract_location(request):
         user_ip = '62.163.105.195'
 
     ip_info = reader.get(user_ip)
-    location = '{} {}'.format(ip_info['country']['names']['en'], ip_info['city']['names']['en'])
+    if 'country' in ip_info:
+        country_name = ip_info['country']['names']['en']
+    else:
+        country_name = 'The Netherlands'
+    if 'city' in ip_info:
+        city_name = ip_info['city']['names']['en']
+    else:
+        city_name = 'Amsterdam'
+    location = '{} {}'.format(country_name, city_name)
     return location
 
 
