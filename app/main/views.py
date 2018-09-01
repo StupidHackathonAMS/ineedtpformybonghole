@@ -30,7 +30,7 @@ def get_requests():
             .filter(filter_fulfiller)
             .order_by(asc(TPRequest.createdAt))
             .all()]
-    return jsonify({'requests': reqs})
+    return jsonify({'response': reqs})
 
 
 @main_blueprint.route('/createTPRequest', methods=['POST'])
@@ -41,14 +41,14 @@ def create_request():
                     location=extract_location(request))
     db.session.add(req)
     db.session.commit()
-    return jsonify({'request': req.json})
+    return jsonify({'response': req.json})
 
 
 @main_blueprint.route('/getDetail', methods=['GET'])
 def get_request():
     request_id = request.args.get('id')
     req = TPRequest.query.filter(TPRequest.id == request_id).one_or_none()
-    return jsonify({'request': req.json if req else None})
+    return jsonify({'response': req.json if req else None})
 
 
 def allowed_file(filename):
@@ -87,7 +87,7 @@ def upload_responce():
                 req.fulfilledAt = int(time.time())
                 db.session.add(req)
                 db.session.commit()
-            return jsonify({'request': req.json if req else None})
+            return jsonify({'response': req.json if req else None})
 
 
 @main_blueprint.route('/install')
