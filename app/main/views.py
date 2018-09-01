@@ -25,7 +25,7 @@ def after_request(response):
 
 @main_blueprint.route('/getTPRequests', methods=['GET'])
 def get_requests():
-    fulfilled = bool(request.args.get('fulfilled', ''))
+    fulfilled = bool(request.args.get('fullfilled', ''))
     filter_fulfiller = TPRequest.fulfilledAt != None if fulfilled else TPRequest.fulfilledAt == None
     reqs = [i.json for i in TPRequest
             .query
