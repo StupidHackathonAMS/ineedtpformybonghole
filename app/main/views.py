@@ -80,7 +80,7 @@ def upload_responce():
             req = TPRequest.query.filter(TPRequest.id == request_id).one_or_none()
             if req:
                 req.message = request.form['message']
-                req.img_url = '{}/static/img/{}'.format(request.host, filename)
+                req.img_url = '{}/app/static/img/{}'.format(request.host, filename)
                 req.fulfilledAt = int(time.time())
                 db.session.add(req)
                 db.session.commit()
