@@ -1,7 +1,9 @@
 import os
 import time
+import random
+
 from . import main_blueprint
-from flask import request, jsonify
+from flask import request, jsonify, send_file
 from app import db
 from sqlalchemy import desc, asc
 from app.models import TPRequest
@@ -97,3 +99,10 @@ def upload_responce():
 def install():
     db.create_all()
     return 'ok'
+
+
+@main_blueprint.route('/getRandom')
+def get_random():
+    path_to_images = os.path.abspath('app/static/img')
+    filename = random.choice(os.listdir(path_to_images))
+    return send_file(os.path.join(path_to_images, filename))
