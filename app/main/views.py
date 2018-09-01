@@ -1,7 +1,7 @@
 import os
 import time
 import random
-
+from uuid import uuid1
 from . import main_blueprint
 from flask import request, jsonify, send_file
 from app import db
@@ -79,7 +79,8 @@ def upload_responce():
         if file.filename == '':
             return jsonify({'message': 'no file found'}), 400
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+            file_extension = secure_filename(file.filename).split('.')[-1]
+            filename = str(uuid1()) + '.' + file_extension  #secure_filename(file.filename)
             save_path = os.path.abspath(os.path.join('app/static/img', filename))
             file.save(save_path)
 
