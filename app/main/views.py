@@ -35,8 +35,9 @@ def get_requests():
 
 @main_blueprint.route('/createTPRequest', methods=['POST'])
 def create_request():
-    req = TPRequest(name=request.form['name'],
-                    message=request.form['message'],
+    request_json = request.get_json()
+    req = TPRequest(name=request_json['name'],
+                    message=request_json['message'],
                     location=extract_location(request))
     db.session.add(req)
     db.session.commit()
