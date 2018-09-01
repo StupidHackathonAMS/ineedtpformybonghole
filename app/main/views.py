@@ -104,4 +104,4 @@ def install():
 def get_random():
     path_to_images = os.path.abspath('app/static/img')
     filename = random.choice(os.listdir(path_to_images))
-    return send_file(os.path.join(path_to_images, filename))k
+    return send_file(os.path.join(path_to_images, filename))
