@@ -12,6 +12,13 @@ from geolite2 import geolite2
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 
+@main_blueprint.after_request
+def after_request(response):
+    header = response.headers
+    header['Access-Control-Allow-Origin'] = '*'
+    return response
+
+
 @main_blueprint.route('/getTPRequests', methods=['GET'])
 def get_requests():
     fulfilled = bool(request.args.get('fulfilled', ''))
