@@ -1,7 +1,7 @@
 import os
 import time
 import random
-
+from uuid import uuid1
 from . import main_blueprint
 from flask import request, jsonify, send_file
 from app import db
@@ -19,18 +19,18 @@ def after_request(response):
     response.headers.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
     response.headers.add('Access-Control-Request-Headers', 'Content-Type,Authorization')
-    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONSk')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
     return response
 
 
 @main_blueprint.route('/getTPRequests', methods=['GET'])
 def get_requests():
-    fulfilled = bool(request.args.get('fulfilled', ''))
+    fulfilled = bool(request.args.get('fullfilled', ''))
     filter_fulfiller = TPRequest.fulfilledAt != None if fulfilled else TPRequest.fulfilledAt == None
     reqs = [i.json for i in TPRequest
             .query
             .filter(filter_fulfiller)
-            .order_by(asc(TPRequest.createdAt))
+            .order_by(desc(TPRequest.createdAt))
             .all()]
     return jsonify({'response': reqs})
 
@@ -72,13 +72,15 @@ def extract_location(request):
 @main_blueprint.route('/upload', methods=['POST'])
 def upload_responce():
     if request.method == 'POST':
+        print(request.files)
         if 'file' not in request.files:
             return jsonify({'message': 'no file found'}), 400
         file = request.files['file']
         if file.filename == '':
             return jsonify({'message': 'no file found'}), 400
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+            file_extension = secure_filename(file.filename).split('.')[-1]
+            filename = str(uuid1()) + '.' + file_extension  #secure_filename(file.filename)
             save_path = os.path.abspath(os.path.join('app/static/img', filename))
             file.save(save_path)
 
