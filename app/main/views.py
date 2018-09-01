@@ -82,11 +82,10 @@ def upload_responce():
             save_path = os.path.abspath(os.path.join('app/static/img', filename))
             file.save(save_path)
 
-            request_json = request.get_json()
-            request_id = request_json['id']
+            request_id = request.data['id']
             req = TPRequest.query.filter(TPRequest.id == request_id).one_or_none()
             if req:
-                req.message = request_json['message']
+                req.message = request.data['message']
                 req.img_url = '{}/app/static/img/{}'.format(request.host, filename)
                 req.fulfilledAt = int(time.time())
                 db.session.add(req)
