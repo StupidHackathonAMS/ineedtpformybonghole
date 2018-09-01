@@ -72,6 +72,7 @@ def extract_location(request):
 @main_blueprint.route('/upload', methods=['POST'])
 def upload_responce():
     if request.method == 'POST':
+        print(request.files)
         if 'file' not in request.files:
             return jsonify({'message': 'no file found'}), 400
         file = request.files['file']
