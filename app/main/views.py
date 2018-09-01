@@ -30,7 +30,7 @@ def get_requests():
     reqs = [i.json for i in TPRequest
             .query
             .filter(filter_fulfiller)
-            .order_by(asc(TPRequest.createdAt))
+            .order_by(desc(TPRequest.createdAt))
             .all()]
     return jsonify({'response': reqs})
 
