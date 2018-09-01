@@ -8,7 +8,7 @@ class Config:
     """ Base class for all configs """
     SECRET_KEY = os.environ.get('SECRET_KEY') or '123'
     SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/ineedtp.db'
-
+    PROPAGATE_EXCEPTIONS = True
     @staticmethod
     def init_app(app):
         pass
